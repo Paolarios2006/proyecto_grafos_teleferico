@@ -86,7 +86,7 @@ st.markdown("""
     }
 
 </style>
-""")
+""", unsafe_allow_html=True)
 
 # ----------------------------------------------------------------- estado
 for clave, valor in (("g", None), ("res", {}), ("adv", []), ("err", []), ("flash", [])):
