@@ -1,7 +1,3 @@
-"""Sistema de análisis y optimización de redes — Teleférico La Paz–El Alto.
-
-Ejecutar:  streamlit run app/main.py
-"""
 import sys
 from pathlib import Path
 
@@ -21,6 +17,76 @@ from app.visual import dibujar
 DATOS = RAIZ / "datos"
 
 st.set_page_config(page_title="Análisis de Red — Teleférico", page_icon="🚡", layout="wide")
+# ==========================================================
+# TEMA VISUAL - TELEFÉRICO
+# ==========================================================
+st.markdown("""
+<style>
+
+    /* Fondo general */
+    .stApp {
+        background-color: #0F172A;
+        color: #F8FAFC;
+    }
+
+    /* Barra lateral */
+    [data-testid="stSidebar"] {
+        background-color: #111827;
+        border-right: 3px solid #009FE3;
+    }
+
+    [data-testid="stSidebar"] * {
+        color: #F8FAFC;
+    }
+
+    /* Títulos */
+    h1, h2, h3 {
+        color: #FFFFFF !important;
+    }
+
+    /* Texto */
+    p, label, span {
+        color: #E2E8F0;
+    }
+
+    /* Botones */
+    .stButton > button {
+        background-color: #009FE3;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+    }
+
+    .stButton > button:hover {
+        background-color: #0077B6;
+        color: white;
+    }
+
+    /* Pestañas */
+    button[data-baseweb="tab"] {
+        color: #CBD5E1;
+        font-weight: 600;
+    }
+
+    button[data-baseweb="tab"][aria-selected="true"] {
+        color: #FACC15;
+    }
+
+    /* Expanders */
+    [data-testid="stExpander"] {
+        background-color: #1E293B;
+        border: 1px solid #334155;
+        border-radius: 10px;
+    }
+
+    /* Cajas de información */
+    [data-testid="stAlert"] {
+        border-radius: 10px;
+    }
+
+</style>
+""")
 
 # ----------------------------------------------------------------- estado
 for clave, valor in (("g", None), ("res", {}), ("adv", []), ("err", []), ("flash", [])):
