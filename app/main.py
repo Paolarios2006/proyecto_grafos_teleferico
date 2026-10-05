@@ -1,3 +1,7 @@
+"""Sistema de análisis y optimización de redes — Teleférico La Paz–El Alto.
+
+Ejecutar:  streamlit run app/main.py
+"""
 import sys
 from pathlib import Path
 
@@ -17,74 +21,60 @@ from app.visual import dibujar
 DATOS = RAIZ / "datos"
 
 st.set_page_config(page_title="Análisis de Red — Teleférico", page_icon="🚡", layout="wide")
-# ==========================================================
-# TEMA VISUAL - TELEFÉRICO
-# ==========================================================
-st.markdown("""
+
+# ------------------------------------------------------------------ estilo
+FRANJA = ("#ff4d4f", "#ff9a3c", "#ffc933", "#3ddc84", "#35c8ff", "#4d7cff", "#b46bff")
+st.markdown(f"""
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@500;700;800&family=DM+Sans:wght@400;500;700&display=swap');
+html, body, [class*="css"], .stApp {{ font-family: 'DM Sans', sans-serif; }}
+h1, h2, h3, h4 {{ font-family: 'Sora', sans-serif !important; letter-spacing: -0.01em; }}
+.stApp {{ background: radial-gradient(1200px 500px at 85% -10%, #1a2a5a55, transparent 60%), #0c1222; }}
+.block-container {{ padding-top: 1.6rem; max-width: 1250px; }}
 
-    /* Fondo general */
-    .stApp {
-        background-color: #0F172A;
-        color: #F8FAFC;
-    }
+/* encabezado: franja con los colores de las líneas del Teleférico */
+.hero {{ background: #141c33; border: 1px solid #263154; border-radius: 18px; padding: 0 0 22px 0;
+        overflow: hidden; margin-bottom: 18px; }}
+.hero .franja {{ height: 8px; background: linear-gradient(90deg, {", ".join(FRANJA)}); }}
+.hero h1 {{ font-size: 2.2rem; font-weight: 800; margin: 18px 28px 6px 28px; color: #fff; }}
+.hero .sub {{ margin: 0 28px; color: #aab6d8; font-size: 0.98rem; }}
+.chips {{ margin: 14px 28px 0 28px; display: flex; flex-wrap: wrap; gap: 8px; }}
+.chip {{ background: #0c1222; border: 1px solid #2c3a66; color: #dfe6ff; padding: 5px 13px;
+        border-radius: 999px; font-size: 0.85rem; }}
+.chip b {{ color: #ffc933; }}
 
-    /* Barra lateral */
-    [data-testid="stSidebar"] {
-        background-color: #111827;
-        border-right: 3px solid #009FE3;
-    }
+/* pestañas */
+.stTabs [data-baseweb="tab-list"] {{ gap: 6px; flex-wrap: wrap; }}
+.stTabs [data-baseweb="tab"] {{ background: #141c33; border: 1px solid #263154; border-radius: 10px;
+        padding: 8px 14px; height: auto; color: #aab6d8; }}
+.stTabs [aria-selected="true"] {{ background: #35b6e8; color: #06101f !important; font-weight: 700;
+        border-color: #35b6e8; }}
+.stTabs [data-baseweb="tab-highlight"], .stTabs [data-baseweb="tab-border"] {{ display: none; }}
 
-    [data-testid="stSidebar"] * {
-        color: #F8FAFC;
-    }
+/* métricas */
+[data-testid="stMetric"] {{ background: #141c33; border: 1px solid #263154; border-left: 5px solid #ffc933;
+        border-radius: 14px; padding: 14px 18px; }}
+[data-testid="stMetric"]:nth-of-type(1) {{ border-left-color: #ff4d4f; }}
+[data-testid="stMetricValue"] {{ font-family: 'Sora', sans-serif; font-weight: 800; color: #fff; }}
+[data-testid="stMetricLabel"] {{ color: #aab6d8; }}
 
-    /* Títulos */
-    h1, h2, h3 {
-        color: #FFFFFF !important;
-    }
+/* botones */
+.stButton > button, .stDownloadButton > button, .stFormSubmitButton > button {{
+    background: linear-gradient(135deg, #35b6e8, #4d7cff); color: #fff; border: 0; border-radius: 12px;
+    font-weight: 700; padding: 0.55rem 1.2rem; transition: transform .12s, box-shadow .12s; }}
+.stButton > button:hover, .stDownloadButton > button:hover, .stFormSubmitButton > button:hover {{
+    transform: translateY(-2px); box-shadow: 0 8px 22px #35b6e844; color: #fff; }}
 
-    /* Texto */
-    p, label, span {
-        color: #E2E8F0;
-    }
+/* barra lateral */
+[data-testid="stSidebar"] {{ background: linear-gradient(180deg, #121a33, #0c1222); border-right: 1px solid #263154; }}
+[data-testid="stSidebar"] h1 {{ font-size: 1.5rem; }}
 
-    /* Botones */
-    .stButton > button {
-        background-color: #009FE3;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        font-weight: 600;
-    }
-
-    .stButton > button:hover {
-        background-color: #0077B6;
-        color: white;
-    }
-
-    /* Pestañas */
-    button[data-baseweb="tab"] {
-        color: #CBD5E1;
-        font-weight: 600;
-    }
-
-    button[data-baseweb="tab"][aria-selected="true"] {
-        color: #FACC15;
-    }
-
-    /* Expanders */
-    [data-testid="stExpander"] {
-        background-color: #1E293B;
-        border: 1px solid #334155;
-        border-radius: 10px;
-    }
-
-    /* Cajas de información */
-    [data-testid="stAlert"] {
-        border-radius: 10px;
-    }
-
+/* expanders, tablas, alertas, código */
+[data-testid="stExpander"] {{ background: #141c33; border: 1px solid #263154; border-radius: 12px; }}
+[data-testid="stDataFrame"] {{ border: 1px solid #263154; border-radius: 12px; overflow: hidden; }}
+[data-testid="stAlert"] {{ border-radius: 12px; }}
+[data-testid="stImage"] img, [data-testid="stPyplot"] img {{ border-radius: 16px; border: 1px solid #263154; }}
+pre, code {{ border-radius: 10px !important; }}
 </style>
 """, unsafe_allow_html=True)
 
@@ -192,15 +182,26 @@ def hay_datos(minimo=1):
 
 
 # ------------------------------------------------------------------- encabezado
-st.title("Sistema de Análisis y Optimización de Redes")
-st.caption(f"Grafo actual: **{g.nombre}** · |V| = {len(g.vertices)} · |E| = {len(g.aristas)} · "
-           f"{'dirigido' if g.dirigido else 'no dirigido'} · ponderado ({unidad or 'sin unidad'})")
+st.markdown(f"""
+<div class="hero">
+  <div class="franja"></div>
+  <h1>🚡 Sistema de Análisis y Optimización de Redes</h1>
+  <p class="sub">Teleférico La Paz–El Alto · encuentra rutas, árboles de expansión y puntos críticos de la red</p>
+  <div class="chips">
+    <span class="chip">Grafo: <b>{g.nombre}</b></span>
+    <span class="chip">Vértices <b>{len(g.vertices)}</b></span>
+    <span class="chip">Aristas <b>{len(g.aristas)}</b></span>
+    <span class="chip">{'dirigido' if g.dirigido else 'no dirigido'}</span>
+    <span class="chip">ponderado en <b>{unidad or 'sin unidad'}</b></span>
+  </div>
+</div>
+""", unsafe_allow_html=True)
 for tipo, msg in st.session_state.flash:
     getattr(st, tipo)(msg)
 st.session_state.flash = []
 
-tabs = st.tabs(["1 · Datos", "2 · Grafo", "3 · Representación", "4 · DFS", "5 · BFS", "6 · Dijkstra",
-                "7 · Kruskal", "8 · Prim", "9 · Comparación", "10 · Reporte"])
+tabs = st.tabs(["🗂️ Datos", "🗺️ Grafo", "🧮 Representación", "🧭 DFS", "🌊 BFS", "🚀 Dijkstra",
+                "🌲 Kruskal", "🌿 Prim", "⚖️ Comparación", "📝 Reporte"])
 
 # =============================================================== 1 · DATOS
 with tabs[0]:

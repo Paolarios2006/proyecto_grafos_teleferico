@@ -1,3 +1,4 @@
+"""Generación del reporte con resultados y recomendaciones (Markdown)."""
 from datetime import datetime
 
 from .algoritmos import componentes_conexos, estaciones_criticas, es_conexo
@@ -12,7 +13,7 @@ def _camino_txt(g, camino):
 
 
 def recomendaciones(g, res):
-    
+    """Recomendaciones que salen de los resultados reales (no son texto fijo)."""
     rec = []
     unidad = (g.unidades() or [""])[0]
     grados = g.grados()

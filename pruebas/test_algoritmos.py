@@ -1,3 +1,7 @@
+"""Pruebas automáticas. Ejecutar:  pytest -v
+
+Cubren los 10 casos de prueba obligatorios de la práctica (ver documentacion/casos_de_prueba.md).
+"""
 import math
 import sys
 from pathlib import Path

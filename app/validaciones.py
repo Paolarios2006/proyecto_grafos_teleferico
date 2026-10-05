@@ -1,3 +1,4 @@
+"""Lectura de CSV/JSON y validación de datos (incompletos, duplicados, incorrectos)."""
 import io
 import json
 import math
@@ -11,7 +12,7 @@ COLS_ARISTAS = ["origen", "destino", "peso"]
 
 
 def leer_csv(fuente):
-    
+    """Lee un CSV (ruta, archivo subido o texto) conservando todo como texto."""
     if isinstance(fuente, str) and "\n" in fuente:
         fuente = io.StringIO(fuente)
     df = pd.read_csv(fuente, dtype=str, keep_default_na=False, encoding="utf-8-sig")
@@ -20,7 +21,7 @@ def leer_csv(fuente):
 
 
 def leer_json(fuente):
-    
+    """Lee {"vertices": [...], "aristas": [...], "dirigido": bool} y devuelve (vdf, adf, dirigido)."""
     texto = fuente if isinstance(fuente, str) else fuente.read()
     if isinstance(texto, bytes):
         texto = texto.decode("utf-8-sig")
@@ -31,7 +32,7 @@ def leer_json(fuente):
 
 
 def validar_tablas(vdf, adf, dirigido=False):
-    
+    """Devuelve (errores, advertencias). Con errores el grafo no se construye."""
     err, adv = [], []
 
     for c in COLS_VERTICES:
