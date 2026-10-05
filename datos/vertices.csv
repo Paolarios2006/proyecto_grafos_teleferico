@@ -1,0 +1,27 @@
+id,nombre,descripcion,x,y,lineas
+V01,Estación Central,Pura Pura (La Paz). Transbordo Roja-Naranja,8.8,6.4,Roja/Naranja
+V02,Cementerio,Estación intermedia Línea Roja,7.6,7.0,Roja
+V03,16 de Julio,Feria 16 de Julio (El Alto). Transbordo Roja-Azul-Plateada,6.4,7.6,Roja/Azul/Plateada
+V04,Plaza Libertad,El Alto. Estación Línea Azul,4.8,7.2,Azul
+V05,Plaza La Paz,El Alto. Estación Línea Azul,3.2,6.8,Azul
+V06,UPEA,Universidad Pública de El Alto. Estación Línea Azul,1.6,6.4,Azul
+V07,Río Seco,El Alto. Terminal oeste Línea Azul,0.0,6.0,Azul
+V08,Mirador,La Paz. Transbordo Amarilla-Plateada,8.2,4.6,Amarilla/Plateada
+V09,Buenos Aires,La Paz. Estación Línea Amarilla,9.2,4.0,Amarilla
+V10,Sopocachi,La Paz. Estación Línea Amarilla,10.2,3.4,Amarilla
+V11,Libertador,Curva de Holguín. Transbordo Amarilla-Verde-Celeste,11.4,3.0,Amarilla/Verde/Celeste
+V12,Alto Obrajes,Zona Sur. Estación Línea Verde,12.0,2.0,Verde
+V13,Obrajes,Zona Sur. Estación Línea Verde,12.8,1.0,Verde
+V14,Irpavi,Zona Sur. Terminal Línea Verde,14.0,0.2,Verde
+V15,Armentia,La Paz. Estación Línea Naranja,9.8,6.6,Naranja
+V16,Periférica,La Paz. Estación Línea Naranja,10.8,6.2,Naranja
+V17,Plaza Villarroel,Miraflores. Transbordo Naranja-Blanca,11.8,5.6,Naranja/Blanca
+V18,Monumento Busch,Miraflores. Transbordo Blanca-Café,12.8,5.2,Blanca/Café
+V19,Plaza Triangular,Miraflores. Estación Línea Blanca,13.8,4.8,Blanca
+V20,Av. del Poeta,San Jorge. Transbordo Blanca-Celeste,12.6,4.0,Blanca/Celeste
+V21,Teatro al Aire Libre,Centro de La Paz. Estación Línea Celeste,11.2,4.5,Celeste
+V22,Prado,Centro de La Paz. Terminal Línea Celeste,10.2,5.0,Celeste
+V23,6 de Marzo,El Alto. Terminal Línea Morada,6.0,4.8,Morada
+V24,Faro Murillo,Límite El Alto-La Paz. Transbordo Morada-Plateada,7.2,5.6,Morada/Plateada
+V25,San José,Centro de La Paz (Obelisco). Terminal Línea Morada,9.4,5.6,Morada
+V26,Las Villas,La Paz. Terminal Línea Café,14.2,6.0,Café

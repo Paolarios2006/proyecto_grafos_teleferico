@@ -1,0 +1,10 @@
+origen,destino,peso,unidad
+V01,V02,4,unidades
+V01,V03,2,unidades
+V02,V03,1,unidades
+V02,V04,5,unidades
+V03,V04,8,unidades
+V03,V05,10,unidades
+V04,V05,2,unidades
+V04,V06,6,unidades
+V05,V06,3,unidades

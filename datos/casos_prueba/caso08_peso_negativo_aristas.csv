@@ -1,0 +1,6 @@
+origen,destino,peso,unidad
+V01,V02,4,minutos
+V02,V03,-2,minutos
+V03,V04,3,minutos
+V04,V05,1,minutos
+V01,V05,9,minutos
