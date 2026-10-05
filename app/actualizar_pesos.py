@@ -1,9 +1,3 @@
-"""Actualiza datos/aristas.csv con los tiempos cronometrados en campo.
-
-Uso:  python -m app.actualizar_pesos evidencias/hoja_cronometraje.csv
-Lee t1_seg, t2_seg, t3_seg de cada tramo, calcula el promedio en minutos, lo guarda
-como `peso`, marca estado = MEDIDO y deja copia de seguridad del archivo anterior.
-"""
 import shutil
 import sys
 from pathlib import Path

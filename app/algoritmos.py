@@ -1,9 +1,3 @@
-"""DFS, BFS, Dijkstra, Kruskal y Prim implementados a mano (sin NetworkX).
-
-Cada función devuelve un diccionario con el resultado y con los pasos
-intermedios, para poder mostrarlos en pantalla y compararlos con la
-validación manual.
-"""
 import heapq
 import math
 import sys
@@ -24,7 +18,7 @@ def _verificar_vertice(g, v, rol="inicial"):
 
 
 def reconstruir_camino(pred, destino):
-    """Sigue los predecesores desde el destino hasta el origen."""
+    
     if destino not in pred:
         return None
     camino, v = [], destino
@@ -35,7 +29,7 @@ def reconstruir_camino(pred, destino):
 
 
 def aristas_del_camino(g, camino):
-    """Lista de (u, v, peso) de un camino dado como lista de vértices."""
+    
     res = []
     for u, v in zip(camino, camino[1:]):
         a = g.obtener_arista(u, v)
@@ -44,7 +38,7 @@ def aristas_del_camino(g, camino):
 
 
 def medir_tiempo(fn, *args, repeticiones=200):
-    """Tiempo medio de ejecución (segundos) de fn(*args)."""
+    
     t0 = time.perf_counter()
     for _ in range(repeticiones):
         fn(*args)
@@ -53,7 +47,7 @@ def medir_tiempo(fn, *args, repeticiones=200):
 
 # ====================================================================== DFS
 def dfs(g, inicio):
-    """Búsqueda en profundidad (recursiva). Vecinos en orden alfabético de código."""
+    
     _verificar_vertice(g, inicio)
     visitado, en_pila = set(), set()
     orden, arbol, ciclos, pasos = [], [], [], []
@@ -92,7 +86,6 @@ def dfs(g, inicio):
 
 
 def componentes_conexos(g):
-    """Componentes conexos (si es dirigido, componentes débilmente conexos)."""
     ady = {v: set() for v in g.vertices}
     for a in g.aristas:
         ady[a["origen"]].add(a["destino"])
@@ -120,7 +113,7 @@ def es_conexo(g):
 
 # ====================================================================== BFS
 def bfs(g, inicio, destino=None):
-    """Búsqueda en amplitud. Camino mínimo en NÚMERO DE ARISTAS (ignora los pesos)."""
+    
     _verificar_vertice(g, inicio)
     if destino is not None:
         _verificar_vertice(g, destino, "destino")
@@ -162,7 +155,7 @@ def bfs(g, inicio, destino=None):
 
 # ================================================================== DIJKSTRA
 def dijkstra(g, origen, destino=None):
-    """Caminos de costo mínimo desde `origen` hacia todos los vértices."""
+    
     _verificar_vertice(g, origen, "origen")
     if destino is not None:
         _verificar_vertice(g, destino, "destino")
@@ -203,7 +196,7 @@ def dijkstra(g, origen, destino=None):
 
 
 def dijkstra_con_cierre(g, origen, destino, cerrar_vertices=(), cerrar_aristas=()):
-    """Compara la ruta original con la ruta cuando se cierran estaciones o tramos."""
+    
     base = dijkstra(g, origen, destino)
     g2 = g.sin(cerrar_vertices, cerrar_aristas)
     if origen not in g2.vertices or destino not in g2.vertices:
@@ -238,7 +231,7 @@ class UnionFind:
 
 
 def verificar_para_arbol_expansion(g):
-    """Kruskal y Prim exigen grafo no dirigido, ponderado y conexo."""
+    
     if g.dirigido:
         raise ValueError("El grafo es dirigido: Kruskal/Prim requieren un grafo NO dirigido.")
     if not g.vertices:

@@ -1,9 +1,3 @@
-"""Estructura de datos del grafo G = (V, E) con pesos w: E -> R.
-
-Soporta grafos dirigidos y no dirigidos. Cada arista es un diccionario con
-las claves obligatorias origen, destino, peso, unidad y cualquier columna extra
-(linea, distancia_km, estado, ...).
-"""
 import copy
 import json
 import math
@@ -18,7 +12,7 @@ class Grafo:
 
     # ------------------------------------------------------------------ util
     def _clave(self, o, d):
-        """Clave canónica de una arista: (o,d) si es dirigido, par ordenado si no."""
+        
         return (o, d) if self.dirigido else tuple(sorted((o, d)))
 
     def _indice_arista(self, o, d):
@@ -100,7 +94,7 @@ class Grafo:
 
     # --------------------------------------------------------------- consulta
     def vecinos(self, v):
-        """Lista de (vecino, peso, arista) ordenada por código de vecino (determinista)."""
+        
         res = []
         for a in self.aristas:
             if a["origen"] == v:
@@ -113,7 +107,7 @@ class Grafo:
         return {v: [(w, p) for w, p, _ in self.vecinos(v)] for v in sorted(self.vertices)}
 
     def matriz_pesos(self):
-        """Devuelve (ids, matriz) con None donde no hay arista."""
+        
         ids = sorted(self.vertices)
         pos = {v: i for i, v in enumerate(ids)}
         m = [[None] * len(ids) for _ in ids]
@@ -129,7 +123,7 @@ class Grafo:
         return ids, [[0 if x is None else 1 for x in fila] for fila in m]
 
     def grados(self):
-        """No dirigido: {v: grado}. Dirigido: {v: (entrada, salida)}."""
+        
         if not self.dirigido:
             return {v: len(self.vecinos(v)) for v in sorted(self.vertices)}
         ent = {v: 0 for v in self.vertices}
@@ -157,7 +151,7 @@ class Grafo:
         return copy.deepcopy(self)
 
     def sin(self, vertices=(), aristas=()):
-        """Copia del grafo sin los vértices y aristas indicados (para simular cierres)."""
+        
         g = self.copia()
         for par in aristas:
             if g.existe_arista(*par):
@@ -168,7 +162,7 @@ class Grafo:
         return g
 
     def con_peso(self, columna, unidad=""):
-        """Copia donde el peso pasa a ser otra columna numérica de las aristas."""
+        
         g = self.copia()
         for a in g.aristas:
             a["peso"] = float(a[columna])
@@ -176,7 +170,7 @@ class Grafo:
         return g
 
     def columnas_numericas_extra(self):
-        """Columnas de las aristas (distintas de peso) con valores numéricos en todas."""
+        
         if not self.aristas:
             return []
         extras = set().union(*[set(a) for a in self.aristas]) - {"origen", "destino", "peso", "unidad"}

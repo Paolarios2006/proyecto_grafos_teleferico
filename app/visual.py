@@ -1,4 +1,3 @@
-"""Dibujo del grafo con matplotlib (usa las coordenadas x,y de los vértices si existen)."""
 import math
 
 import matplotlib
@@ -6,12 +5,20 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 COLORES_LINEA = {
-    "Roja": "#d62728", "Amarilla": "#e8b800", "Verde": "#2ca02c", "Azul": "#1f4fd8",
-    "Naranja": "#ff7f0e", "Blanca": "#5f6368", "Celeste": "#35b6e8", "Morada": "#8e44ad",
-    "Café": "#8b5a2b", "Plateada": "#a9b8c9", "Peatonal": "#555555",
+    "Roja": "#E30613",
+    "Naranja": "#F4511E",
+    "Amarilla": "#FFD600",
+    "Verde": "#16A34A",
+    "Azul": "#009FE3",
+    "Celeste": "#00B8D9",
+    "Morada": "#7E3F98",
+    "Café": "#8B4513",
+    "Blanca": "#F5F5F5",
+    "Plateada": "#94A3B8",
+    "Peatonal": "#64748B",
 }
-COLOR_RESALTE = "#111111"
-COLOR_NODO = "#ffffff"
+COLOR_RESALTE = "#0F172A"
+COLOR_NODO = "#F8FAFC"
 
 
 def _posiciones(g):
@@ -35,7 +42,7 @@ def _par(a, b, dirigido):
 
 def dibujar(g, aristas_resaltadas=(), nodos_resaltados=(), camino=None, titulo="",
             mostrar_pesos=True, etiquetas="nombre", tam=(13, 7.5)):
-    """Devuelve una figura. `aristas_resaltadas`: iterable de (u, v[, peso])."""
+    
     pos = _posiciones(g)
     resaltar = {_par(t[0], t[1], g.dirigido) for t in aristas_resaltadas}
     if camino:
